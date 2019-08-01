@@ -1,5 +1,10 @@
 # Change log
 
+### vNext
+
+* Make remote schemas pass error extensions through. <br/>
+[@carmelid](https://github.com/carmelid) in [#1179](https://github.com/apollographql/graphql-tools/pull/1179)
+
 ### 4.0.6
 
 * Use `getIntrospectionQuery` instead of deprecated `introspectionQuery` constant from graphql-js
