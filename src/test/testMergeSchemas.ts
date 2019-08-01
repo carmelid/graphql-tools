@@ -2207,10 +2207,12 @@ fragment BookingFragment on Booking {
               propertyById(id: "p1") {
                 error
                 errorAlias: error
+                errorWithExtensions
                 bookings {
                   id
                   error
                   bookingErrorAlias: error
+                  errorWithExtensions
                 }
               }
             }
@@ -2222,16 +2224,19 @@ fragment BookingFragment on Booking {
             propertyById: {
               bookings: [
                 {
+                  errorWithExtensions: null,
                   bookingErrorAlias: null,
                   error: null,
                   id: 'b1',
                 },
                 {
+                  errorWithExtensions: null,
                   bookingErrorAlias: null,
                   error: null,
                   id: 'b2',
                 },
                 {
+                  errorWithExtensions: null,
                   bookingErrorAlias: null,
                   error: null,
                   id: 'b3',
@@ -2239,6 +2244,7 @@ fragment BookingFragment on Booking {
               ],
               error: null,
               errorAlias: null,
+              errorWithExtensions: null,
             },
           },
           errors: [
@@ -2263,10 +2269,23 @@ fragment BookingFragment on Booking {
               path: ['propertyById', 'errorAlias'],
             },
             {
+              extensions: {
+                code: 'NOT_FOUND',
+              },
+              locations: [
+                {
+                  column: 17,
+                  line: 6,
+                },
+              ],
+              message: 'Property.error error',
+              path: ['propertyById', 'errorWithExtensions'],
+            },
+            {
               locations: [
                 {
                   column: 19,
-                  line: 8,
+                  line: 9,
                 },
               ],
               message: 'Booking.error error',
@@ -2276,17 +2295,35 @@ fragment BookingFragment on Booking {
               locations: [
                 {
                   column: 19,
-                  line: 9,
+                  line: 10,
                 },
               ],
               message: 'Booking.error error',
               path: ['propertyById', 'bookings', 0, 'bookingErrorAlias'],
             },
             {
+              extensions: {
+                someExtension: true,
+              },
               locations: [
                 {
                   column: 19,
-                  line: 8,
+                  line: 11,
+                }
+              ],
+              message: 'Booking.errorWithExtensions error',
+              path: [
+                'propertyById',
+                'bookings',
+                0,
+                'errorWithExtensions',
+              ],
+            },
+            {
+              locations: [
+                {
+                  column: 19,
+                  line: 9,
                 },
               ],
               message: 'Booking.error error',
@@ -2296,17 +2333,35 @@ fragment BookingFragment on Booking {
               locations: [
                 {
                   column: 19,
-                  line: 9,
+                  line: 10,
                 },
               ],
               message: 'Booking.error error',
               path: ['propertyById', 'bookings', 1, 'bookingErrorAlias'],
             },
             {
+              extensions: {
+                someExtension: true,
+              },
               locations: [
                 {
                   column: 19,
-                  line: 8,
+                  line: 11,
+                }
+              ],
+              message: 'Booking.errorWithExtensions error',
+              path: [
+                'propertyById',
+                'bookings',
+                1,
+                'errorWithExtensions',
+              ],
+            },
+            {
+              locations: [
+                {
+                  column: 19,
+                  line: 9,
                 },
               ],
               message: 'Booking.error error',
@@ -2316,11 +2371,29 @@ fragment BookingFragment on Booking {
               locations: [
                 {
                   column: 19,
-                  line: 9,
+                  line: 10,
                 },
               ],
               message: 'Booking.error error',
               path: ['propertyById', 'bookings', 2, 'bookingErrorAlias'],
+            },
+            {
+              extensions: {
+                someExtension: true,
+              },
+              locations: [
+                {
+                  column: 19,
+                  line: 11,
+                }
+              ],
+              message: 'Booking.errorWithExtensions error',
+              path: [
+                'propertyById',
+                'bookings',
+                2,
+                'errorWithExtensions',
+              ],
             },
           ],
         });
