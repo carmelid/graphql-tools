@@ -28,7 +28,7 @@ var ErrorWithResult = /** @class */ (function (_super) {
 var ErrorWithExtensions = /** @class */ (function (_super) {
     __extends(ErrorWithExtensions, _super);
     function ErrorWithExtensions(message, code) {
-        return _super.call(this, message, null, null, null, null, null, { code: code }) || this;
+        return _super.call(this, message, null, null, null, null, undefined, { code: code }) || this;
     }
     return ErrorWithExtensions;
 }(graphql_1.GraphQLError));
@@ -61,7 +61,7 @@ describe('Errors', function () {
             }
             catch (e) {
                 chai_1.assert.equal(e.message, 'Test error');
-                chai_1.assert.isUndefined(e.originalError.errors);
+                chai_1.assert.isUndefined(e.originalError);
             }
         });
         it('persists single error with extensions', function () {
@@ -74,7 +74,7 @@ describe('Errors', function () {
             catch (e) {
                 chai_1.assert.equal(e.message, 'Test error');
                 chai_1.assert.equal(e.extensions && e.extensions.code, 'UNAUTHENTICATED');
-                chai_1.assert.isUndefined(e.originalError.errors);
+                chai_1.assert.isUndefined(e.originalError);
             }
         });
         it('persists original errors without a result', function () {

@@ -14,7 +14,7 @@ class ErrorWithResult extends GraphQLError {
 
 class ErrorWithExtensions extends GraphQLError {
   constructor(message: string, code: string) {
-    super(message, null, null, null, null, null, { code });
+    super(message, null, null, null, null, undefined, { code });
   }
 }
 
@@ -46,7 +46,7 @@ describe('Errors', () => {
         checkResultAndHandleErrors(result, {} as GraphQLResolveInfo, 'responseKey');
       } catch (e) {
         assert.equal(e.message, 'Test error');
-        assert.isUndefined(e.originalError.errors);
+        assert.isUndefined(e.originalError);
       }
     });
 
@@ -59,7 +59,7 @@ describe('Errors', () => {
       } catch (e) {
         assert.equal(e.message, 'Test error');
         assert.equal(e.extensions && e.extensions.code, 'UNAUTHENTICATED');
-        assert.isUndefined(e.originalError.errors);
+        assert.isUndefined(e.originalError);
       }
     });
 

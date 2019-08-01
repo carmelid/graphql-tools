@@ -93,9 +93,10 @@ function checkResultAndHandleErrors(result, info, responseKey) {
         // apollo-link-http & http-link-dataloader need the
         // result property to be passed through for better error handling.
         // If there is only one error, which contains a result property, pass the error through
-        var newError = result.errors.length === 1 && hasResult(result.errors[0])
-            ? result.errors[0]
-            : new CombinedError(concatErrors(result.errors), result.errors);
+        if (result.errors.length === 1 && hasResult(result.errors[0])) {
+            throw new graphql_1.GraphQLError(result.errors[0].message, info.fieldNodes, undefined, undefined, graphql_1.responsePathAsArray(info.path), result.errors[0].originalError, result.errors[0].extensions);
+        }
+        var newError = new CombinedError(concatErrors(result.errors), result.errors);
         throw error_1.locatedError(newError, info.fieldNodes, graphql_1.responsePathAsArray(info.path));
     }
     var resultObject = result.data[responseKey];

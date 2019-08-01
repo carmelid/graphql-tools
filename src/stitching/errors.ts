@@ -105,10 +105,18 @@ export function checkResultAndHandleErrors(
     // apollo-link-http & http-link-dataloader need the
     // result property to be passed through for better error handling.
     // If there is only one error, which contains a result property, pass the error through
-    const newError =
-      result.errors.length === 1 && hasResult(result.errors[0])
-        ? result.errors[0]
-        : new CombinedError(concatErrors(result.errors), result.errors);
+    if (result.errors.length === 1 && hasResult(result.errors[0])) {
+      throw new GraphQLError(
+        result.errors[0].message,
+        info.fieldNodes,
+        undefined,
+        undefined,
+        responsePathAsArray(info.path),
+        result.errors[0].originalError,
+        result.errors[0].extensions,
+      );
+    }
+    const newError = new CombinedError(concatErrors(result.errors), result.errors);
     throw locatedError(newError, info.fieldNodes, responsePathAsArray(info.path));
   }
 
