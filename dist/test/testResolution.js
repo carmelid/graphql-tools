@@ -79,7 +79,9 @@ describe('Resolve', function () {
                 })
                     .catch(done);
             });
-            setTimeout(function () { return pubsub.publish('printRootChannel', { printRoot: subscriptionRoot }); }, 0);
+            setTimeout(function () {
+                pubsub.publish('printRootChannel', { printRoot: subscriptionRoot });
+            });
             firstSubsTriggered
                 .then(function () {
                 return graphql_1.graphql(schema, "\n              query TestQuery {\n                printRoot\n              }\n            ", queryRoot);

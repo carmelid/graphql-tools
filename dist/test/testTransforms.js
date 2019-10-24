@@ -11,10 +11,11 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -275,13 +276,13 @@ describe('transforms', function () {
                         setUser: function (parent, _a) {
                             var input = _a.input;
                             if (data[input.id]) {
-                                return __assign({}, data[input.id], input);
+                                return __assign(__assign({}, data[input.id]), input);
                             }
                         },
                         setAddress: function (parent, _a) {
                             var input = _a.input;
                             if (data[input.id]) {
-                                return __assign({}, data[input.id].address, input);
+                                return __assign(__assign({}, data[input.id].address), input);
                             }
                         },
                     },
@@ -367,7 +368,7 @@ describe('transforms', function () {
                                                 })];
                                         case 2:
                                             userResult = _b.sent();
-                                            return [2 /*return*/, __assign({}, userResult, { address: addressResult })];
+                                            return [2 /*return*/, __assign(__assign({}, userResult), { address: addressResult })];
                                     }
                                 });
                             });
